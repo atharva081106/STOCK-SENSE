@@ -36,17 +36,25 @@ export default function LoginPage() {
     setEmail("admin@stocksense.com");
     setPassword("password123");
     
-    const result = await signIn("credentials", {
-      email: "admin@stocksense.com",
-      password: "password123",
-      redirect: false,
-    });
+    try {
+      // Seed the database with demo data first
+      await fetch("/api/seed-demo", { method: "POST" });
+      
+      const result = await signIn("credentials", {
+        email: "admin@stocksense.com",
+        password: "password123",
+        redirect: false,
+      });
 
-    if (result.error) {
-      setError("Demo login failed");
+      if (result.error) {
+        setError("Demo login failed");
+        setLoading(false);
+      } else {
+        router.push("/dashboard");
+      }
+    } catch (err) {
+      setError("Failed to initialize demo data");
       setLoading(false);
-    } else {
-      router.push("/dashboard");
     }
   };
 
