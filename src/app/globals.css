@@ -29,47 +29,6 @@
   --radius-full: 9999px;
 }
 
-:root[class="dark"] {
-  --bg-app: #0F1115;
-  --bg-card: #181920;
-  --bg-sidebar: #0A0B0E;
-  
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
-  --text-muted: #64748B;
-  
-  --accent-purple: #9282FA;
-  --accent-purple-light: #312E55;
-  --accent-dark: #FFFFFF;
-  
-  --border-color: rgba(255, 255, 255, 0.08);
-  
-  --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.4);
-}
-
-:root[class="dark"] .table tbody tr:hover td {
-  background: #20222C;
-}
-
-:root[class="dark"] .form-input {
-  background: #14151C;
-  border-color: rgba(255,255,255,0.1);
-  color: #FFF;
-}
-
-:root[class="dark"] .form-input:focus {
-  background: #1C1E26;
-}
-
-:root[class="dark"] .toggle-group {
-  background: rgba(255,255,255,0.05);
-}
-:root[class="dark"] .toggle-btn.active {
-  background: rgba(255,255,255,0.1);
-  color: #FFF;
-}
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {

@@ -1,7 +1,6 @@
 import "./globals.css";
 import { AppProvider } from "@/context/AppContext";
 import AuthProvider from "@/components/AuthProvider";
-import { ThemeProvider } from "@/components/ThemeProvider";
 
 export const metadata = {
   title: "StockSense | Modern Inventory Management",
@@ -10,17 +9,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-          <AuthProvider>
-            <AppProvider>
-              <div className="app-container">
-                {children}
-              </div>
-            </AppProvider>
-          </AuthProvider>
-        </ThemeProvider>
+        <AuthProvider>
+          <AppProvider>
+            <div className="app-container">
+              {children}
+            </div>
+          </AppProvider>
+        </AuthProvider>
       </body>
     </html>
   );
