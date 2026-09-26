@@ -89,7 +89,7 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 40, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.8, delay: 0.4, type: "spring", bounce: 0.4 }}
             style={{ marginTop: '4rem', width: '100%', maxWidth: '1000px', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', border: '1px solid rgba(255,255,255,0.1)' }}
           >
-            <img src="/dashboard-preview.jpg" alt="StockSense Dashboard" style={{ width: '100%', display: 'block', objectFit: 'cover' }} />
+            <img src="/dashboard-preview.png" alt="StockSense Dashboard" style={{ width: '100%', display: 'block', objectFit: 'cover' }} />
           </motion.div>
           
         </section>
