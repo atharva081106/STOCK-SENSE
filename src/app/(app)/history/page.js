@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { ArrowDownToLine, ArrowUpFromLine, GitCompare, FileEdit, Truck, RefreshCcw, ShieldAlert, ArrowUpRight, ArrowDownRight, PackageCheck, Trash2, X } from "lucide-react";
 import { useAppContext } from "@/context/AppContext";
 
@@ -11,12 +12,7 @@ export default function HistoryPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newOp, setNewOp] = useState({ type: 'Transfer', contact: 'Internal', status: 'Waiting' });
 
-  const tabs = [
-    { id: "all", label: "All Operations" },
-    { id: "receipts", label: "Receipts" },
-    { id: "deliveries", label: "Deliveries" },
-    { id: "transfers", label: "Transfers" },
-  ];
+
 
   const actions = [
     { label: "Receipt", icon: ArrowDownToLine, color: "var(--success)" },
@@ -54,15 +50,10 @@ export default function HistoryPage() {
           
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexShrink: 0 }}>
             <div className="toggle-group">
-              {tabs.map(tab => (
-                <button 
-                  key={tab.id} 
-                  className={"toggle-btn " + (activeTab === tab.id ? 'active' : '')}
-                  onClick={() => setActiveTab(tab.id)}
-                >
-                  {tab.label}
-                </button>
-              ))}
+              <Link href="/receipts" className="toggle-btn">Receipts</Link>
+              <Link href="/deliveries" className="toggle-btn">Deliveries</Link>
+              <Link href="/adjustments" className="toggle-btn">Adjustments</Link>
+              <Link href="/history" className="toggle-btn active">Transfers</Link>
             </div>
             
             <div style={{ display: 'flex', gap: '0.5rem' }}>
