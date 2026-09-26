@@ -16,7 +16,9 @@
     "recharts": "^3.10.1"
   },
   "devDependencies": {
+    "@prisma/client": "^5.22.0",
     "eslint": "^9",
-    "eslint-config-next": "16.3.6"
+    "eslint-config-next": "16.3.6",
+    "prisma": "^5.22.0"
   }
 }
