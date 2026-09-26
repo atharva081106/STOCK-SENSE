@@ -137,8 +137,8 @@ export default function LandingPage() {
 
             {/* Card 1 — Analytics */}
             <motion.div
-              initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
-              style={{ minWidth: '420px', height: '520px', background: '#1E1F26', borderRadius: '28px', padding: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', scrollSnapAlign: 'start', flexShrink: 0, position: 'relative', overflow: 'hidden', color: 'white', boxShadow: '0 25px 50px -12px rgba(30,31,38,0.3)' }}
+              initial={{ opacity: 0, x: 40, scale: 0.95 }} whileInView={{ opacity: 1, x: 0, scale: 1 }} viewport={{ once: false, amount: 0.3 }} transition={{ duration: 0.6, type: "spring", bounce: 0.3 }}
+              style={{ minWidth: '340px', height: '440px', background: '#1E1F26', borderRadius: '28px', padding: '1.75rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', scrollSnapAlign: 'center', flexShrink: 0, position: 'relative', overflow: 'hidden', color: 'white', boxShadow: '0 25px 50px -12px rgba(30,31,38,0.3)' }}
             >
               {/* Glow orb */}
               <div style={{ position: 'absolute', top: '-40px', right: '-40px', width: '200px', height: '200px', background: 'radial-gradient(circle, rgba(126,135,186,0.4) 0%, transparent 70%)', borderRadius: '50%', pointerEvents: 'none' }} />
@@ -169,8 +169,8 @@ export default function LandingPage() {
 
             {/* Card 2 — Multi-Warehouse */}
             <motion.div
-              initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}
-              style={{ minWidth: '420px', height: '520px', background: 'linear-gradient(145deg, #7E87BA 0%, #B496A6 60%, #E3C1AF 100%)', borderRadius: '28px', padding: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', scrollSnapAlign: 'start', flexShrink: 0, overflow: 'hidden', color: 'white', boxShadow: '0 25px 50px -12px rgba(126,135,186,0.4)' }}
+              initial={{ opacity: 0, x: 40, scale: 0.95 }} whileInView={{ opacity: 1, x: 0, scale: 1 }} viewport={{ once: false, amount: 0.3 }} transition={{ duration: 0.6, type: "spring", bounce: 0.3 }}
+              style={{ minWidth: '340px', height: '440px', background: 'linear-gradient(145deg, #7E87BA 0%, #B496A6 60%, #E3C1AF 100%)', borderRadius: '28px', padding: '1.75rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', scrollSnapAlign: 'center', flexShrink: 0, overflow: 'hidden', color: 'white', boxShadow: '0 25px 50px -12px rgba(126,135,186,0.4)' }}
             >
               <div>
                 <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.25rem' }}>
@@ -197,8 +197,8 @@ export default function LandingPage() {
 
             {/* Card 3 — Security */}
             <motion.div
-              initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.3 }}
-              style={{ minWidth: '420px', height: '520px', background: '#F8E9DE', borderRadius: '28px', padding: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', scrollSnapAlign: 'start', flexShrink: 0, overflow: 'hidden', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.08)' }}
+              initial={{ opacity: 0, x: 40, scale: 0.95 }} whileInView={{ opacity: 1, x: 0, scale: 1 }} viewport={{ once: false, amount: 0.3 }} transition={{ duration: 0.6, type: "spring", bounce: 0.3 }}
+              style={{ minWidth: '340px', height: '440px', background: '#F8E9DE', borderRadius: '28px', padding: '1.75rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', scrollSnapAlign: 'center', flexShrink: 0, overflow: 'hidden', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.08)' }}
             >
               <div>
                 <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.25rem', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
@@ -227,8 +227,8 @@ export default function LandingPage() {
 
             {/* Card 4 — AI Forecasting */}
             <motion.div
-              initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.4 }}
-              style={{ minWidth: '420px', height: '520px', background: 'white', borderRadius: '28px', padding: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', scrollSnapAlign: 'start', flexShrink: 0, overflow: 'hidden', border: '1px solid rgba(0,0,0,0.06)', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.06)' }}
+              initial={{ opacity: 0, x: 40, scale: 0.95 }} whileInView={{ opacity: 1, x: 0, scale: 1 }} viewport={{ once: false, amount: 0.3 }} transition={{ duration: 0.6, type: "spring", bounce: 0.3 }}
+              style={{ minWidth: '340px', height: '440px', background: 'white', borderRadius: '28px', padding: '1.75rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', scrollSnapAlign: 'center', flexShrink: 0, overflow: 'hidden', border: '1px solid rgba(0,0,0,0.06)', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.06)' }}
             >
               <div>
                 <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'rgba(126,135,186,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.25rem' }}>
@@ -288,7 +288,7 @@ export default function LandingPage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
             {/* Industry 1 */}
             <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }}
+              initial={{ opacity: 0, y: 30, scale: 0.95 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: false, amount: 0.3 }} transition={{ duration: 0.5, type: "spring", bounce: 0.4 }}
               style={{ background: '#F8E9DE', padding: '2rem', borderRadius: '24px', position: 'relative', overflow: 'hidden' }}
             >
               <div style={{ position: 'absolute', top: '-10%', right: '-10%', opacity: 0.1 }}>
@@ -300,7 +300,7 @@ export default function LandingPage() {
             
             {/* Industry 2 */}
             <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2 }}
+              initial={{ opacity: 0, y: 30, scale: 0.95 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: false, amount: 0.3 }} transition={{ duration: 0.5, type: "spring", bounce: 0.4, delay: 0.1 }}
               style={{ background: 'rgba(126, 135, 186, 0.1)', padding: '2rem', borderRadius: '24px', position: 'relative', overflow: 'hidden' }}
             >
               <div style={{ position: 'absolute', top: '-10%', right: '-10%', opacity: 0.1 }}>
@@ -312,7 +312,7 @@ export default function LandingPage() {
             
             {/* Industry 3 */}
             <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.3 }}
+              initial={{ opacity: 0, y: 30, scale: 0.95 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: false, amount: 0.3 }} transition={{ duration: 0.5, type: "spring", bounce: 0.4, delay: 0.2 }}
               style={{ background: '#1E1F26', color: 'white', padding: '2rem', borderRadius: '24px', position: 'relative', overflow: 'hidden' }}
             >
               <div style={{ position: 'absolute', top: '-10%', right: '-10%', opacity: 0.05 }}>
@@ -338,7 +338,7 @@ export default function LandingPage() {
             <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap' }}>
               {/* Starter Tier */}
               <motion.div 
-                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }}
+                initial={{ opacity: 0, y: 30, scale: 0.95 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: false, amount: 0.2 }} transition={{ duration: 0.5, type: "spring", bounce: 0.4 }}
                 style={{ background: '#FAFAFA', border: '1px solid #E5E7EB', borderRadius: '24px', padding: '2.5rem', width: '100%', maxWidth: '350px', display: 'flex', flexDirection: 'column' }}
               >
                 <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#1E1F26' }}>Starter</h3>
@@ -355,8 +355,8 @@ export default function LandingPage() {
               
               {/* Pro Tier (Highlighted) */}
               <motion.div 
-                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2 }}
-                style={{ background: '#1E1F26', color: 'white', borderRadius: '24px', padding: '2.5rem', width: '100%', maxWidth: '350px', display: 'flex', flexDirection: 'column', transform: 'scale(1.05)', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', position: 'relative' }}
+                initial={{ opacity: 0, y: 30, scale: 0.95 }} whileInView={{ opacity: 1, y: 0, scale: 1.05 }} viewport={{ once: false, amount: 0.2 }} transition={{ duration: 0.5, type: "spring", bounce: 0.4, delay: 0.1 }}
+                style={{ background: '#1E1F26', color: 'white', borderRadius: '24px', padding: '2.5rem', width: '100%', maxWidth: '350px', display: 'flex', flexDirection: 'column', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', position: 'relative' }}
               >
                 <div style={{ position: 'absolute', top: '-15px', left: '50%', transform: 'translateX(-50%)', background: 'linear-gradient(135deg, #7E87BA 0%, #B496A6 100%)', color: 'white', padding: '0.25rem 1rem', borderRadius: '999px', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase' }}>Most Popular</div>
                 
