@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
-import { LayoutDashboard, Package, ArrowRightLeft, Settings, User, LogOut, Star } from "lucide-react";
+import { LayoutDashboard, Package, Settings, User, LogOut, ArrowDownToLine, Truck, SlidersHorizontal, History } from "lucide-react";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -11,7 +11,10 @@ export default function Sidebar() {
   const navItems = [
     { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
     { name: "Products", href: "/products", icon: Package },
-    { name: "Operations", href: "/operations", icon: ArrowRightLeft },
+    { name: "Receipts", href: "/receipts", icon: ArrowDownToLine },
+    { name: "Deliveries", href: "/deliveries", icon: Truck },
+    { name: "Adjustments", href: "/adjustments", icon: SlidersHorizontal },
+    { name: "History", href: "/history", icon: History },
     { name: "Settings", href: "/settings", icon: Settings },
     { name: "Profile", href: "/profile", icon: User },
   ];

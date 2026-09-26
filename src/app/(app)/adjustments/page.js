@@ -4,11 +4,12 @@ import { useState } from "react";
 import { ArrowDownToLine, ArrowUpFromLine, GitCompare, FileEdit, Truck, RefreshCcw, ShieldAlert, ArrowUpRight, ArrowDownRight, PackageCheck, Trash2, X } from "lucide-react";
 import { useAppContext } from "@/context/AppContext";
 
-export default function OperationsPage() {
+export default function AdjustmentsPage() {
   const { operations, addOperation, deleteOperation } = useAppContext();
+  const adjustments = operations.filter(op => op.type === 'Adjust');
   const [activeTab, setActiveTab] = useState("all");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newOp, setNewOp] = useState({ type: 'Transfer', contact: 'Internal', status: 'Waiting' });
+  const [newOp, setNewOp] = useState({ type: 'Adjust', contact: 'Internal', status: 'Waiting' });
 
   const tabs = [
     { id: "all", label: "All Operations" },
@@ -24,8 +25,8 @@ export default function OperationsPage() {
     { label: "Adjust", icon: FileEdit, color: "var(--accent-dark)" },
   ];
 
-  const pendingOps = operations.filter(op => op.status === 'Waiting').length;
-  const readyOps = operations.filter(op => op.status === 'Ready').length;
+  const pendingOps = adjustments.filter(op => op.status === 'Waiting').length;
+  const readyOps = adjustments.filter(op => op.status === 'Ready').length;
 
   const handleCreate = (e) => {
     e.preventDefault();
@@ -84,8 +85,8 @@ export default function OperationsPage() {
 
           <div className="card" style={{ flex: 1, padding: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
             <div style={{ padding: '1rem 1.25rem', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <h2 style={{ fontSize: '1.125rem', margin: 0, fontWeight: 500 }}>Transfer Records</h2>
-              <span className="badge badge-neutral" style={{ borderRadius: '9999px' }}>{operations.length} Records</span>
+              <h2 style={{ fontSize: '1.125rem', margin: 0, fontWeight: 500 }}>Inventory Adjustments</h2>
+              <span className="badge badge-neutral" style={{ borderRadius: '9999px' }}>{adjustments.length} Records</span>
             </div>
             
             <div style={{ flex: 1, overflowY: 'auto' }}>
@@ -101,7 +102,7 @@ export default function OperationsPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {operations.map((op) => (
+                  {adjustments.map((op) => (
                     <tr key={op.id} style={{ transition: 'background var(--transition-fast)', cursor: 'pointer' }} onMouseEnter={e => e.currentTarget.style.background = 'var(--bg-app)'} onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
                       <td style={{ padding: '0.75rem 1rem', fontWeight: 600 }}>{op.ref}</td>
                       <td style={{ padding: '0.75rem 1rem', color: 'var(--text-primary)', fontWeight: 500 }}>{op.contact}</td>
