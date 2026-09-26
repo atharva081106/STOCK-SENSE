@@ -29,6 +29,47 @@
   --radius-full: 9999px;
 }
 
+:root[class="dark"] {
+  --bg-app: #0F1115;
+  --bg-card: #181920;
+  --bg-sidebar: #0A0B0E;
+  
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  
+  --accent-purple: #9282FA;
+  --accent-purple-light: #312E55;
+  --accent-dark: #FFFFFF;
+  
+  --border-color: rgba(255, 255, 255, 0.08);
+  
+  --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+:root[class="dark"] .table tbody tr:hover td {
+  background: #20222C;
+}
+
+:root[class="dark"] .form-input {
+  background: #14151C;
+  border-color: rgba(255,255,255,0.1);
+  color: #FFF;
+}
+
+:root[class="dark"] .form-input:focus {
+  background: #1C1E26;
+}
+
+:root[class="dark"] .toggle-group {
+  background: rgba(255,255,255,0.05);
+}
+:root[class="dark"] .toggle-btn.active {
+  background: rgba(255,255,255,0.1);
+  color: #FFF;
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
@@ -52,15 +93,31 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 0;
-  overflow: hidden; /* Prevent text spilling out of card bounds */
-  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, background 0.3s ease, border 0.3s ease;
   position: relative;
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-purple), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
 .card:hover {
   transform: translateY(-4px) scale(1.01);
-  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1), 0 10px 20px -5px rgba(0,0,0,0.05);
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15), 0 10px 20px -5px rgba(0,0,0,0.1);
   z-index: 5;
+  border-color: rgba(146, 130, 250, 0.3);
+}
+
+.card:hover::before {
+  opacity: 1;
 }
 
 .card-dark { background: var(--accent-dark); color: #FFFFFF; border: none; }

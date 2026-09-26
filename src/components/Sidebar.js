@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { LayoutDashboard, Package, Settings, User, LogOut, ArrowDownToLine, Truck, SlidersHorizontal, History } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -69,7 +70,8 @@ export default function Sidebar() {
       </div>
 
       {/* Bottom Section */}
-      <div style={{ background: 'var(--bg-sidebar)', borderRadius: '24px', padding: '1rem 0.5rem', display: 'flex', justifyContent: 'center' }}>
+      <div style={{ background: 'var(--bg-sidebar)', borderRadius: '24px', padding: '1rem 0.5rem', display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center' }}>
+        <ThemeToggle />
         <button 
           onClick={() => signOut({ callbackUrl: '/login' })}
           title="Logout"
