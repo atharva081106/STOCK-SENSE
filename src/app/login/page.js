@@ -30,6 +30,26 @@ export default function LoginPage() {
     }
   };
 
+  const handleDemoLogin = async () => {
+    setLoading(true);
+    setError(null);
+    setEmail("admin@stocksense.com");
+    setPassword("password123");
+    
+    const result = await signIn("credentials", {
+      email: "admin@stocksense.com",
+      password: "password123",
+      redirect: false,
+    });
+
+    if (result.error) {
+      setError("Demo login failed");
+      setLoading(false);
+    } else {
+      router.push("/dashboard");
+    }
+  };
+
   return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', minHeight: '100vh', background: 'var(--bg-app)' }}>
       <div className="card animate-fade-in" style={{ width: '100%', maxWidth: '400px', padding: '2.5rem', position: 'relative', overflow: 'hidden', zIndex: 10 }}>
@@ -80,6 +100,24 @@ export default function LoginPage() {
             {loading ? 'Signing In...' : 'Sign In'}
           </button>
         </form>
+
+        <div style={{ display: 'flex', alignItems: 'center', margin: '1.5rem 0', position: 'relative', zIndex: 1 }}>
+          <div style={{ flex: 1, height: '1px', background: 'var(--border-color)' }}></div>
+          <span style={{ padding: '0 1rem', fontSize: '0.875rem', color: 'var(--text-muted)' }}>OR</span>
+          <div style={{ flex: 1, height: '1px', background: 'var(--border-color)' }}></div>
+        </div>
+
+        <button 
+          type="button" 
+          onClick={handleDemoLogin} 
+          disabled={loading} 
+          className="btn" 
+          style={{ width: '100%', height: '48px', background: 'var(--bg-app)', color: 'var(--text-primary)', border: '1px solid var(--border-color)', position: 'relative', zIndex: 1, transition: 'all 0.2s', opacity: loading ? 0.7 : 1 }}
+          onMouseOver={(e) => e.currentTarget.style.background = 'var(--border-color)'}
+          onMouseOut={(e) => e.currentTarget.style.background = 'var(--bg-app)'}
+        >
+          Login with Demo Account
+        </button>
 
         <div style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)', position: 'relative', zIndex: 1 }}>
           Don't have an account? <a href="#">Sign up</a>
