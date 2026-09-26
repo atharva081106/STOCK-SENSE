@@ -31,6 +31,11 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+html {
+  scroll-padding-top: 100px;
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Outfit', sans-serif;
   background-color: var(--bg-app);
@@ -68,26 +73,50 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius-md);
+  padding: 0.6rem 1.2rem;
+  border-radius: 9999px; /* Pill shape by default for premium feel */
   font-weight: 500;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   cursor: pointer;
   border: none;
   font-family: 'Outfit', sans-serif;
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, opacity 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  gap: 0.5rem;
 }
 
-.btn:hover {
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
 .btn:active {
-  transform: translateY(0) scale(0.95);
+  transform: scale(0.96);
 }
 
-.btn-primary { background: var(--accent-dark); color: white; }
-.btn-secondary { background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border-color); }
+.btn-primary { 
+  background: linear-gradient(180deg, #2D2F3A 0%, #1E1F26 100%); 
+  color: white; 
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.1);
+  border: 1px solid #111;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(180deg, #3A3C4A 0%, #252630 100%);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.15);
+  transform: translateY(-1px);
+}
+
+.btn-secondary { 
+  background: #FFFFFF; 
+  color: #1E1F26; 
+  border: 1px solid #E2E8F0; 
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.btn-secondary:hover {
+  background: #F8FAFC;
+  border-color: #CBD5E1;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transform: translateY(-1px);
+}
 
 /* Layout Utilities */
 .app-container {
@@ -133,6 +162,43 @@ body {
 .table tbody tr:hover td {
   background: #FDFDFD;
   border-bottom-color: transparent;
+}
+
+/* Forms */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.form-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background: #FAFAFA;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--accent-purple);
+  background: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(146, 130, 250, 0.15);
+}
+
+.form-input::placeholder {
+  color: var(--text-muted);
 }
 
 /* Responsive Overrides */
@@ -381,3 +447,25 @@ body {
   z-index: 10;
   transition: background 0.1s;
 }
+
+/* Features Carousel — animated bar chart bars */
+@keyframes barPulse {
+  0%   { transform: scaleY(0.7); opacity: 0.7; }
+  100% { transform: scaleY(1);   opacity: 1; }
+}
+
+/* Features Carousel — orbiting network node */
+@keyframes orbit {
+  from { transform: rotate(0deg) translate(70px) rotate(0deg); }
+  to   { transform: rotate(360deg) translate(70px) rotate(-360deg); }
+}
+
+/* Features Carousel — pulsing green dot */
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); }
+  70%  { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+/* Hide scrollbar for the carousel track */
+.carousel-track::-webkit-scrollbar { display: none; }

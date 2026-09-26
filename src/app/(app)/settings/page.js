@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { Plus, MapPin, Settings2, ShieldCheck, Database, HardDrive, ArrowUpRight, ShieldAlert } from "lucide-react";
+import { useSession } from "next-auth/react";
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState("warehouses");
+  const { data: session } = useSession();
 
   const warehouses = [
     { name: "Main Warehouse", location: "Mumbai, MH", status: "Active" },
@@ -143,10 +145,12 @@ export default function SettingsPage() {
               <ShieldCheck size={16} color="rgba(255,255,255,0.7)" />
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: 'auto' }}>
-              <img src="https://ui-avatars.com/api/?name=Rahul+Verma&background=fff&color=1E1F26" alt="Profile" style={{ width: '48px', height: '48px', borderRadius: '12px' }} />
+              <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'white', color: '#1E1F26', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', fontWeight: 'bold' }}>
+                {session?.user?.name ? session.user.name.charAt(0).toUpperCase() : 'A'}
+              </div>
               <div>
-                <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 500 }}>Rahul Verma</h3>
-                <span style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.8)' }}>Admin Account</span>
+                <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 500 }}>{session?.user?.name || "Admin User"}</h3>
+                <span style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.8)' }}>{session?.user?.role || "Admin Account"}</span>
               </div>
             </div>
             

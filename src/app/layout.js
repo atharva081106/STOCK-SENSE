@@ -1,5 +1,6 @@
 import "./globals.css";
 import { AppProvider } from "@/context/AppContext";
+import AuthProvider from "@/components/AuthProvider";
 
 export const metadata = {
   title: "StockSense | Modern Inventory Management",
@@ -10,11 +11,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <AppProvider>
-          <div className="app-container">
-            {children}
-          </div>
-        </AppProvider>
+        <AuthProvider>
+          <AppProvider>
+            <div className="app-container">
+              {children}
+            </div>
+          </AppProvider>
+        </AuthProvider>
       </body>
     </html>
   );

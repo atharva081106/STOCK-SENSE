@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Package, ArrowUpRight, ArrowDownRight, Grid, Upload } from "lucide-react";
 import { useAppContext } from "@/context/AppContext";
 import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, AreaChart, Area } from "recharts";
@@ -8,13 +8,20 @@ import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell
 export default function DashboardPage() {
   const { products, operations } = useAppContext();
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
   
   // Real Calculations
   const totalProducts = products.length;
   const totalStockUnits = products.reduce((sum, p) => sum + p.stock, 0);
-  const lowStockProducts = products.filter(p => p.stock < 10);
+  const lowStockProducts = products.filter(p => p.stock < 50);
   const lowStockCount = lowStockProducts.length;
-  const healthyStockPercent = Math.round(((totalProducts - lowStockCount) / totalProducts) * 100);
+  const healthyStockPercent = totalProducts > 0 ? Math.round(((totalProducts - lowStockCount) / totalProducts) * 100) : 0;
   const pendingOps = operations.filter(op => op.status === 'Waiting');
   
   // Aggregate Categories dynamically
@@ -60,22 +67,22 @@ export default function DashboardPage() {
     <div className="animate-fade-in dashboard-grid" style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '0.25rem 0' }}>
       
       {/* Main Content Area */}
-      <div className="dashboard-layout" style={{ flex: 1, display: 'grid', gridTemplateColumns: '7fr 3fr', gap: '1.25rem', minHeight: 0 }}>
+      <div className="dashboard-layout" style={{ flex: 1, display: 'grid', gridTemplateColumns: '7fr 3fr', gap: '1rem', minHeight: 0 }}>
         
         {/* LEFT COLUMN */}
-        <div className="dashboard-left" style={{ display: 'grid', gridTemplateRows: '2.5fr 1.5fr 1.5fr', gap: '1.25rem', minHeight: 0 }}>
+        <div className="dashboard-left" style={{ display: 'grid', gridTemplateRows: '2.5fr 1.5fr 1.5fr', gap: '1rem', minHeight: 0 }}>
           
           {/* Main Chart */}
-          <div className="card framer-card" style={{ padding: '1.25rem 1.5rem', minHeight: 0, overflow: 'visible' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem', flexShrink: 0 }}>
+          <div className="card framer-card" style={{ padding: '1rem 1.25rem', minHeight: 0, overflow: 'visible', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem', flexShrink: 0 }}>
               <div>
-                <h3 style={{ fontSize: '1.125rem', margin: '0 0 0.5rem 0', fontWeight: 500 }}>Stock Analytics</h3>
-                <div style={{ display: 'flex', gap: '1rem', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><div style={{ width: '8px', height: '8px', borderRadius: '50%', border: '1.5px solid var(--border-color)' }}></div> Inbound</span>
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--accent-purple-light)' }}></div> Outbound</span>
+                <h3 style={{ fontSize: '1rem', margin: '0 0 0.25rem 0', fontWeight: 500 }}>Stock Analytics</h3>
+                <div style={{ display: 'flex', gap: '1rem', fontSize: '0.7rem', color: 'var(--text-secondary)' }}>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', border: '1.5px solid var(--border-color)' }}></div> Inbound</span>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--accent-purple-light)' }}></div> Outbound</span>
                 </div>
               </div>
-              <select className="form-input" style={{ padding: '0.4rem 1rem', borderRadius: '9999px', fontSize: '0.8rem', width: 'auto', background: 'transparent', border: '1px solid var(--border-color)', color: 'var(--text-primary)', cursor: 'pointer' }}>
+              <select className="form-input" style={{ padding: '0.3rem 0.8rem', borderRadius: '9999px', fontSize: '0.75rem', width: 'auto', background: 'transparent', border: '1px solid var(--border-color)', color: 'var(--text-primary)', cursor: 'pointer' }}>
                 <option>This year</option>
               </select>
             </div>
@@ -139,9 +146,9 @@ export default function DashboardPage() {
           </div>
 
           {/* Row 2: Donut + List */}
-          <div className="dashboard-row-2" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '1.25rem', minHeight: 0 }}>
-            <div className="card framer-card" style={{ padding: '1rem', display: 'flex', flexDirection: 'column' }}>
-              <h3 style={{ fontSize: '0.9rem', margin: '0 0 0.5rem 0' }}>Revenue by Channel</h3>
+          <div className="dashboard-row-2" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '1rem', minHeight: 0 }}>
+            <div className="card framer-card" style={{ padding: '0.75rem 1rem', display: 'flex', flexDirection: 'column' }}>
+              <h3 style={{ fontSize: '0.85rem', margin: '0 0 0.25rem 0' }}>Revenue by Channel</h3>
               <div style={{ flex: 1, minHeight: 0, position: 'relative' }}>
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
@@ -168,14 +175,14 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            <div className="card framer-card" style={{ padding: '1rem', minHeight: 0 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                <h3 style={{ fontSize: '0.9rem', margin: 0, color: '#EF4444' }}>Low Stock Alerts</h3>
+            <div className="card framer-card" style={{ padding: '0.75rem 1rem', minHeight: 0, display: 'flex', flexDirection: 'column' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
+                <h3 style={{ fontSize: '0.85rem', margin: 0, color: '#EF4444' }}>Low Stock Alerts</h3>
                 <ArrowUpRight size={14} style={{ color: 'var(--text-muted)' }} />
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', flex: 1, overflowY: 'auto', paddingRight: '0.5rem' }}>
-                {lowStockProducts.slice(0, 4).map((p, i) => (
-                  <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.75rem', background: 'rgba(239, 68, 68, 0.05)', padding: '0.5rem', borderRadius: '8px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', flex: 1, overflowY: 'auto', paddingRight: '0.25rem' }}>
+                {lowStockProducts.slice(0, 3).map((p, i) => (
+                  <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.7rem', background: 'rgba(239, 68, 68, 0.05)', padding: '0.35rem 0.5rem', borderRadius: '8px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                       <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <img src={p.image} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '4px' }} />
@@ -193,13 +200,13 @@ export default function DashboardPage() {
           </div>
 
           {/* Row 3: Product Sales Table */}
-          <div className="card framer-card" style={{ padding: '1rem', minHeight: 0 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem', flexShrink: 0 }}>
-              <h3 style={{ fontSize: '1rem', margin: 0, fontWeight: 500 }}>Product sales</h3>
+          <div className="card framer-card" style={{ padding: '0.75rem 1rem', minHeight: 0, display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem', flexShrink: 0 }}>
+              <h3 style={{ fontSize: '0.9rem', margin: 0, fontWeight: 500 }}>Product sales</h3>
               <ArrowUpRight size={14} style={{ color: 'var(--text-muted)', cursor: 'pointer' }} />
             </div>
             <div style={{ flex: 1, overflowY: 'auto' }}>
-              <table className="table" style={{ fontSize: '0.8rem' }}>
+              <table className="table" style={{ fontSize: '0.75rem' }}>
                 <thead>
                   <tr>
                     <th>Item</th>
@@ -211,14 +218,14 @@ export default function DashboardPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {products.slice(0, 4).map((p) => (
+                  {products.slice(0, 3).map((p) => (
                     <tr key={p.id}>
                       <td>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                          <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#F5F5F5', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                          <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#F5F5F5', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
                             <img src={p.image} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                           </div>
-                          <span style={{ fontWeight: 500, fontSize: '0.85rem' }}>{p.name}</span>
+                          <span style={{ fontWeight: 500, fontSize: '0.75rem' }}>{p.name}</span>
                         </div>
                       </td>
                       <td style={{ textAlign: 'right', fontWeight: 600 }}>{p.stock}</td>
@@ -235,12 +242,12 @@ export default function DashboardPage() {
         </div>
 
         {/* RIGHT COLUMN - EXACTLY MATCHING DESIGN IMAGE */}
-        <div className="dashboard-right" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', minHeight: 0 }}>
+        <div className="dashboard-right" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', minHeight: 0 }}>
           
           {/* Dark Card - Total Inventory */}
-          <div className="card framer-card" style={{ flex: 1, background: '#1E1F26', color: 'white', padding: '1.25rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', alignItems: 'center' }}>
-              <span style={{ fontSize: '1rem', color: '#FFFFFF', fontWeight: 500 }}>Total Stock Volume</span>
+          <div className="card framer-card" style={{ flex: 1, background: '#1E1F26', color: 'white', padding: '1rem 1.25rem', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.25rem', alignItems: 'center' }}>
+              <span style={{ fontSize: '0.9rem', color: '#FFFFFF', fontWeight: 500 }}>Total Stock Volume</span>
               <Grid size={16} color="rgba(255,255,255,0.7)" />
             </div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '0.25rem' }}>
@@ -251,11 +258,11 @@ export default function DashboardPage() {
             </div>
             <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.8rem', margin: '0 0 auto 0' }}>Across {totalProducts} unique SKUs</p>
             
-            <div style={{ display: 'flex', gap: '0.75rem', height: '44px', marginTop: '1.5rem', marginBottom: '0.5rem' }}>
-              <div style={{ flex: '4', borderRadius: '12px', border: '1.5px solid rgba(255,255,255,0.8)', background: 'repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,0.3) 2px, rgba(255,255,255,0.3) 4px)', display: 'flex', alignItems: 'flex-end', padding: '0.35rem 0.6rem', fontSize: '0.9rem', color: 'white' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', height: '36px', marginTop: '1rem', marginBottom: '0.5rem' }}>
+              <div style={{ flex: '4', borderRadius: '10px', border: '1.5px solid rgba(255,255,255,0.8)', background: 'repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,0.3) 2px, rgba(255,255,255,0.3) 4px)', display: 'flex', alignItems: 'flex-end', padding: '0.2rem 0.5rem', fontSize: '0.8rem', color: 'white' }}>
                 40%
               </div>
-              <div style={{ flex: '6', background: 'white', borderRadius: '12px', display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end', padding: '0.35rem 0.6rem', color: '#1E1F26', fontSize: '0.9rem', fontWeight: 500 }}>
+              <div style={{ flex: '6', background: 'white', borderRadius: '10px', display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end', padding: '0.2rem 0.5rem', color: '#1E1F26', fontSize: '0.8rem', fontWeight: 500 }}>
                 60%
               </div>
             </div>
@@ -267,9 +274,9 @@ export default function DashboardPage() {
           </div>
 
           {/* Gradient Card - Pending Operations */}
-          <div className="card framer-card" style={{ flex: 1, background: 'linear-gradient(135deg, #7E87BA 0%, #B496A6 50%, #E3C1AF 100%)', color: 'white', padding: '1.25rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', alignItems: 'center' }}>
-              <span style={{ fontSize: '1rem', color: '#FFFFFF', fontWeight: 500 }}>Pending Operations</span>
+          <div className="card framer-card" style={{ flex: 1, background: 'linear-gradient(135deg, #7E87BA 0%, #B496A6 50%, #E3C1AF 100%)', color: 'white', padding: '1rem 1.25rem', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.25rem', alignItems: 'center' }}>
+              <span style={{ fontSize: '0.9rem', color: '#FFFFFF', fontWeight: 500 }}>Pending Operations</span>
               <Grid size={16} color="rgba(255,255,255,0.7)" />
             </div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '0.25rem' }}>
@@ -278,9 +285,9 @@ export default function DashboardPage() {
                 <ArrowDownRight size={14} /> Action Req
               </span>
             </div>
-            <p style={{ color: 'rgba(255,255,255,0.9)', fontSize: '0.8rem', margin: '0 0 auto 0' }}>Requires immediate attention</p>
+            <p style={{ color: 'rgba(255,255,255,0.9)', fontSize: '0.75rem', margin: '0 0 auto 0' }}>Requires immediate attention</p>
             
-            <div style={{ height: '70px', marginTop: '1rem', position: 'relative', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '4px' }}>
+            <div style={{ height: '60px', marginTop: '0.5rem', position: 'relative', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '4px' }}>
               <div style={{ position: 'absolute', top: '70%', left: 0, right: 0, borderTop: '1.5px dashed rgba(255,255,255,0.5)', zIndex: 0 }}></div>
               {[70, 50, 20, 25, 40, 25, 20, 15].map((h, i) => (
                 <div key={"bar-"+i} style={{ flex: 1, height: h + '%', background: 'white', borderRadius: '6px 6px 0 0', zIndex: 1 }}></div>
@@ -293,9 +300,9 @@ export default function DashboardPage() {
           </div>
 
           {/* Beige Card - Stock Health */}
-          <div className="card framer-card" style={{ flex: 1, background: '#F8E9DE', color: '#111', padding: '1.25rem 1.25rem 0.75rem 1.25rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', alignItems: 'center' }}>
-              <span style={{ fontSize: '1rem', fontWeight: 500 }}>Inventory Health</span>
+          <div className="card framer-card" style={{ flex: 1, background: '#F8E9DE', color: '#111', padding: '1rem 1.25rem', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.25rem', alignItems: 'center' }}>
+              <span style={{ fontSize: '0.9rem', fontWeight: 500 }}>Inventory Health</span>
               <Grid size={16} color="#666" />
             </div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '0.25rem' }}>
@@ -304,9 +311,9 @@ export default function DashboardPage() {
                 {healthyStockPercent > 80 ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />} Optimal
               </span>
             </div>
-            <p style={{ color: '#666', fontSize: '0.8rem', margin: '0 0 1rem 0' }}>{lowStockCount} items critically low</p>
+            <p style={{ color: '#666', fontSize: '0.75rem', margin: '0 0 auto 0' }}>{lowStockCount} items critically low</p>
             
-            <div style={{ height: '80px', width: '100%', marginLeft: '-0.5rem' }}>
+            <div style={{ height: '60px', width: '100%', marginLeft: '-0.5rem', marginTop: '0.5rem' }}>
               <ResponsiveContainer width="105%" height="100%">
                 <AreaChart data={areaData}>
                   <defs>
@@ -328,8 +335,8 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <button style={{ flexShrink: 0, padding: '1rem', borderRadius: '9999px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', width: '100%', background: '#1E1F26', color: 'white', border: 'none', cursor: 'pointer', fontSize: '0.9rem', fontWeight: 500 }}>
-            <Upload size={16} /> Export statistics
+          <button style={{ flexShrink: 0, padding: '0.75rem', borderRadius: '9999px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', width: '100%', background: '#1E1F26', color: 'white', border: 'none', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 500 }}>
+            <Upload size={14} /> Export statistics
           </button>
         </div>
       </div>

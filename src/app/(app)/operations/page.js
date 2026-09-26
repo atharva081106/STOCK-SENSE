@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowDownToLine, ArrowUpFromLine, GitCompare, FileEdit, Truck, RefreshCcw, ShieldAlert, ArrowUpRight, ArrowDownRight, PackageCheck } from "lucide-react";
+import { ArrowDownToLine, ArrowUpFromLine, GitCompare, FileEdit, Truck, RefreshCcw, ShieldAlert, ArrowUpRight, ArrowDownRight, PackageCheck, Trash2, X } from "lucide-react";
 import { useAppContext } from "@/context/AppContext";
 
 export default function OperationsPage() {
-  const { operations } = useAppContext();
+  const { operations, addOperation, deleteOperation } = useAppContext();
   const [activeTab, setActiveTab] = useState("all");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newOp, setNewOp] = useState({ type: 'Transfer', contact: 'Internal', status: 'Waiting' });
 
   const tabs = [
     { id: "all", label: "All Operations" },
@@ -25,13 +27,29 @@ export default function OperationsPage() {
   const pendingOps = operations.filter(op => op.status === 'Waiting').length;
   const readyOps = operations.filter(op => op.status === 'Ready').length;
 
+  const handleCreate = (e) => {
+    e.preventDefault();
+    addOperation({
+      ...newOp,
+      ref: `OP-${Date.now().toString().slice(-6)}`,
+      badge: newOp.status === 'Ready' ? 'badge-success' : 'badge-warning'
+    });
+    setIsModalOpen(false);
+  };
+
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this operation?")) {
+      deleteOperation(id);
+    }
+  };
+
   return (
     <div className="animate-fade-in dashboard-grid" style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '0.25rem 0' }}>
       
-      <div className="dashboard-layout" style={{ flex: 1, display: 'grid', gridTemplateColumns: '7fr 3fr', gap: '1.25rem', minHeight: 0 }}>
+      <div className="dashboard-layout" style={{ flex: 1, display: 'grid', gridTemplateColumns: '7fr 3fr', gap: '1rem', minHeight: 0 }}>
         
         {/* LEFT COLUMN - Data Table */}
-        <div className="dashboard-left" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', minHeight: 0 }}>
+        <div className="dashboard-left" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', minHeight: 0 }}>
           
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexShrink: 0 }}>
             <div className="toggle-group">
@@ -48,7 +66,15 @@ export default function OperationsPage() {
             
             <div style={{ display: 'flex', gap: '0.5rem' }}>
               {actions.map(action => (
-                <button key={action.label} className="btn btn-secondary" style={{ padding: '0.4rem 0.8rem', gap: '0.5rem', borderRadius: '9999px' }}>
+                <button 
+                  key={action.label} 
+                  className="btn btn-secondary" 
+                  style={{ padding: '0.4rem 0.8rem', gap: '0.5rem', borderRadius: '9999px' }}
+                  onClick={() => {
+                    setNewOp({ ...newOp, type: action.label });
+                    setIsModalOpen(true);
+                  }}
+                >
                   <action.icon size={14} style={{ color: action.color }} />
                   {action.label}
                 </button>
@@ -57,7 +83,7 @@ export default function OperationsPage() {
           </div>
 
           <div className="card" style={{ flex: 1, padding: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ padding: '1.25rem', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ padding: '1rem 1.25rem', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h2 style={{ fontSize: '1.125rem', margin: 0, fontWeight: 500 }}>Transfer Records</h2>
               <span className="badge badge-neutral" style={{ borderRadius: '9999px' }}>{operations.length} Records</span>
             </div>
@@ -66,27 +92,38 @@ export default function OperationsPage() {
               <table className="table">
                 <thead style={{ position: 'sticky', top: 0, background: 'var(--bg-card)', zIndex: 10 }}>
                   <tr>
-                    <th style={{ padding: '1rem 1.25rem' }}>Reference</th>
-                    <th style={{ padding: '1rem 1.25rem' }}>Contact</th>
-                    <th style={{ padding: '1rem 1.25rem' }}>Scheduled Date</th>
-                    <th style={{ padding: '1rem 1.25rem' }}>Source Document</th>
-                    <th style={{ padding: '1rem 1.25rem' }}>Status</th>
+                    <th style={{ padding: '0.75rem 1rem' }}>Reference</th>
+                    <th style={{ padding: '0.75rem 1rem' }}>Contact</th>
+                    <th style={{ padding: '0.75rem 1rem' }}>Scheduled Date</th>
+                    <th style={{ padding: '0.75rem 1rem' }}>Source Document</th>
+                    <th style={{ padding: '0.75rem 1rem' }}>Status</th>
+                    <th style={{ padding: '0.75rem 1rem', textAlign: 'right' }}>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {operations.map((op) => (
                     <tr key={op.id} style={{ transition: 'background var(--transition-fast)', cursor: 'pointer' }} onMouseEnter={e => e.currentTarget.style.background = 'var(--bg-app)'} onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
-                      <td style={{ padding: '1rem 1.25rem', fontWeight: 600 }}>{op.ref}</td>
-                      <td style={{ padding: '1rem 1.25rem', color: 'var(--text-primary)', fontWeight: 500 }}>{op.contact}</td>
-                      <td style={{ padding: '1rem 1.25rem', color: 'var(--text-secondary)' }}>Today</td>
-                      <td style={{ padding: '1rem 1.25rem', color: 'var(--text-secondary)' }}>PO000{op.id}</td>
-                      <td style={{ padding: '1rem 1.25rem' }}>
+                      <td style={{ padding: '0.75rem 1rem', fontWeight: 600 }}>{op.ref}</td>
+                      <td style={{ padding: '0.75rem 1rem', color: 'var(--text-primary)', fontWeight: 500 }}>{op.contact}</td>
+                      <td style={{ padding: '0.75rem 1rem', color: 'var(--text-secondary)' }}>Today</td>
+                      <td style={{ padding: '0.75rem 1rem', color: 'var(--text-secondary)' }}>PO000{op.id}</td>
+                      <td style={{ padding: '0.75rem 1rem' }}>
                         <span className={"badge " + op.badge} style={{ 
                           background: op.badge === 'badge-success' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(245, 158, 11, 0.1)',
                           borderRadius: '6px'
                         }}>
                           {op.status}
                         </span>
+                      </td>
+                      <td style={{ padding: '0.75rem 1rem', textAlign: 'right' }}>
+                        <button 
+                          onClick={() => handleDelete(op.id)}
+                          style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--danger)', opacity: 0.7, transition: 'opacity 0.2s' }}
+                          onMouseEnter={e => e.currentTarget.style.opacity = '1'}
+                          onMouseLeave={e => e.currentTarget.style.opacity = '0.7'}
+                        >
+                          <Trash2 size={16} />
+                        </button>
                       </td>
                     </tr>
                   ))}
@@ -97,10 +134,10 @@ export default function OperationsPage() {
         </div>
 
         {/* RIGHT COLUMN - BENTO CARDS */}
-        <div className="dashboard-right" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', minHeight: 0 }}>
+        <div className="dashboard-right" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', minHeight: 0 }}>
           
           {/* Dark Card - Pending Receipts */}
-          <div className="card" style={{ flex: 1, background: '#1E1F26', color: 'white', padding: '1.25rem', display: 'flex', flexDirection: 'column' }}>
+          <div className="card" style={{ flex: 1, background: '#1E1F26', color: 'white', padding: '1rem 1.25rem', display: 'flex', flexDirection: 'column' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', alignItems: 'center' }}>
               <span style={{ fontSize: '1rem', color: '#FFFFFF', fontWeight: 500 }}>Ready to Process</span>
               <PackageCheck size={16} color="rgba(255,255,255,0.7)" />
@@ -124,7 +161,7 @@ export default function OperationsPage() {
           </div>
 
           {/* Gradient Card - Deliveries */}
-          <div className="card" style={{ flex: 1, background: 'linear-gradient(135deg, #7E87BA 0%, #B496A6 50%, #E3C1AF 100%)', color: 'white', padding: '1.25rem', display: 'flex', flexDirection: 'column' }}>
+          <div className="card" style={{ flex: 1, background: 'linear-gradient(135deg, #7E87BA 0%, #B496A6 50%, #E3C1AF 100%)', color: 'white', padding: '1rem 1.25rem', display: 'flex', flexDirection: 'column' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', alignItems: 'center' }}>
               <span style={{ fontSize: '1rem', color: '#FFFFFF', fontWeight: 500 }}>Logistics Health</span>
               <Truck size={16} color="rgba(255,255,255,0.7)" />
@@ -149,7 +186,7 @@ export default function OperationsPage() {
           </div>
 
           {/* Beige Card - Delays */}
-          <div className="card" style={{ flex: 1, background: '#F8E9DE', color: '#111', padding: '1.25rem', display: 'flex', flexDirection: 'column' }}>
+          <div className="card" style={{ flex: 1, background: '#F8E9DE', color: '#111', padding: '1rem 1.25rem', display: 'flex', flexDirection: 'column' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', alignItems: 'center' }}>
               <span style={{ fontSize: '1rem', fontWeight: 500 }}>Delayed Operations</span>
               <ShieldAlert size={16} color="#666" />
@@ -168,6 +205,51 @@ export default function OperationsPage() {
           </div>
         </div>
       </div>
+
+      {/* Modal */}
+      {isModalOpen && (
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999 }}>
+          <div className="card animate-fade-in" style={{ width: '100%', maxWidth: '500px', padding: '2rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+              <h2 style={{ fontSize: '1.25rem', margin: 0 }}>Create {newOp.type}</h2>
+              <button onClick={() => setIsModalOpen(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-secondary)' }}>
+                <X size={20} />
+              </button>
+            </div>
+            
+            <form onSubmit={handleCreate} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem' }}>Contact Name</label>
+                <input required type="text" className="form-input" style={{ borderRadius: '8px' }} value={newOp.contact} onChange={e => setNewOp({...newOp, contact: e.target.value})} placeholder="E.g. Vendor A or Warehouse B" />
+              </div>
+              
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem' }}>Operation Type</label>
+                  <select className="form-input" style={{ borderRadius: '8px' }} value={newOp.type} onChange={e => setNewOp({...newOp, type: e.target.value})}>
+                    <option>Receipt</option>
+                    <option>Delivery</option>
+                    <option>Transfer</option>
+                    <option>Adjust</option>
+                  </select>
+                </div>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem' }}>Status</label>
+                  <select className="form-input" style={{ borderRadius: '8px' }} value={newOp.status} onChange={e => setNewOp({...newOp, status: e.target.value})}>
+                    <option>Waiting</option>
+                    <option>Ready</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginTop: '1.5rem' }}>
+                <button type="button" className="btn btn-secondary" style={{ borderRadius: '9999px' }} onClick={() => setIsModalOpen(false)}>Cancel</button>
+                <button type="submit" className="btn btn-primary" style={{ borderRadius: '9999px' }}>Save Operation</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
     </div>
   );

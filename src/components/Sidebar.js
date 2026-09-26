@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { signOut } from "next-auth/react";
 import { LayoutDashboard, Package, ArrowRightLeft, Settings, User, LogOut, Star } from "lucide-react";
 
 export default function Sidebar() {
@@ -66,8 +67,8 @@ export default function Sidebar() {
 
       {/* Bottom Section */}
       <div style={{ background: 'var(--bg-sidebar)', borderRadius: '24px', padding: '1rem 0.5rem', display: 'flex', justifyContent: 'center' }}>
-        <Link 
-          href="/"
+        <button 
+          onClick={() => signOut({ callbackUrl: '/login' })}
           title="Logout"
           style={{
             display: 'flex',
@@ -77,14 +78,16 @@ export default function Sidebar() {
             height: '44px',
             borderRadius: '16px',
             color: 'rgba(255, 255, 255, 0.6)',
-            textDecoration: 'none',
+            background: 'transparent',
+            border: 'none',
+            cursor: 'pointer',
             transition: 'all var(--transition-fast)'
           }}
           onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--danger)'; e.currentTarget.style.background = 'rgba(239, 68, 68, 0.2)'; }}
           onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255, 255, 255, 0.6)'; e.currentTarget.style.background = 'transparent'; }}
         >
           <LogOut size={20} />
-        </Link>
+        </button>
       </div>
     </div>
   );

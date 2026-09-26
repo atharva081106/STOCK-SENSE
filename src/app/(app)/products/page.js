@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, Filter, MoreVertical, X, Grid, ArrowUpRight, ArrowDownRight, Upload, Box, ShieldAlert } from "lucide-react";
+import { Plus, Filter, Trash2, X, Grid, ArrowUpRight, ArrowDownRight, Upload, Box, ShieldAlert } from "lucide-react";
 import { useAppContext } from "@/context/AppContext";
 
 export default function ProductsPage() {
-  const { products, addProduct } = useAppContext();
+  const { products, addProduct, deleteProduct } = useAppContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newProd, setNewProd] = useState({ name: '', sku: '', category: 'Raw Materials', stock: 0, uom: 'kg' });
 
@@ -19,13 +19,19 @@ export default function ProductsPage() {
     setNewProd({ name: '', sku: '', category: 'Raw Materials', stock: 0, uom: 'kg' });
   };
 
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      deleteProduct(id);
+    }
+  };
+
   return (
     <div className="animate-fade-in dashboard-grid" style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '0.25rem 0' }}>
       
-      <div className="dashboard-layout" style={{ flex: 1, display: 'grid', gridTemplateColumns: '7fr 3fr', gap: '1.25rem', minHeight: 0 }}>
+      <div className="dashboard-layout" style={{ flex: 1, display: 'grid', gridTemplateColumns: '7fr 3fr', gap: '1rem', minHeight: 0 }}>
         
         {/* LEFT COLUMN - Data Table */}
-        <div className="dashboard-left" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', minHeight: 0 }}>
+        <div className="dashboard-left" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', minHeight: 0 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexShrink: 0 }}>
             <div style={{ display: 'flex', gap: '0.5rem' }}>
               <button className="btn btn-secondary" style={{ borderRadius: '9999px', padding: '0.4rem 1rem' }}><Filter size={16} /> Filter</button>
@@ -36,7 +42,7 @@ export default function ProductsPage() {
           </div>
 
           <div className="card" style={{ flex: 1, padding: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ padding: '1.25rem', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ padding: '1rem 1.25rem', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h2 style={{ fontSize: '1.125rem', margin: 0, fontWeight: 500 }}>Product Inventory</h2>
               <span className="badge badge-neutral" style={{ borderRadius: '9999px' }}>{products.length} Items</span>
             </div>
@@ -45,20 +51,20 @@ export default function ProductsPage() {
               <table className="table">
                 <thead style={{ position: 'sticky', top: 0, background: 'var(--bg-card)', zIndex: 10 }}>
                   <tr>
-                    <th style={{ padding: '1rem 1.25rem' }}>Name</th>
-                    <th style={{ padding: '1rem 1.25rem' }}>SKU</th>
-                    <th style={{ padding: '1rem 1.25rem' }}>Category</th>
-                    <th style={{ padding: '1rem 1.25rem' }}>Stock</th>
-                    <th style={{ padding: '1rem 1.25rem' }}>UOM</th>
-                    <th style={{ padding: '1rem 1.25rem', textAlign: 'right' }}>Actions</th>
+                    <th style={{ padding: '0.75rem 1rem' }}>Name</th>
+                    <th style={{ padding: '0.75rem 1rem' }}>SKU</th>
+                    <th style={{ padding: '0.75rem 1rem' }}>Category</th>
+                    <th style={{ padding: '0.75rem 1rem' }}>Stock</th>
+                    <th style={{ padding: '0.75rem 1rem' }}>UOM</th>
+                    <th style={{ padding: '0.75rem 1rem', textAlign: 'right' }}>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {products.map((p) => (
                     <tr key={p.id} style={{ transition: 'background var(--transition-fast)' }} onMouseEnter={e => e.currentTarget.style.background = 'var(--bg-app)'} onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
-                      <td style={{ padding: '1rem 1.25rem', fontWeight: 600 }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                          <div style={{ width: '40px', height: '40px', borderRadius: '8px', overflow: 'hidden', background: 'var(--bg-app)', flexShrink: 0, border: '1px solid var(--border-color)' }}>
+                      <td style={{ padding: '0.75rem 1rem', fontWeight: 600 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                          <div style={{ width: '32px', height: '32px', borderRadius: '8px', overflow: 'hidden', background: 'var(--bg-app)', flexShrink: 0, border: '1px solid var(--border-color)' }}>
                             <img 
                               src={p.image || "https://ui-avatars.com/api/?name=" + encodeURIComponent(p.name) + "&background=random"} 
                               alt={p.name} 
@@ -68,13 +74,13 @@ export default function ProductsPage() {
                           {p.name}
                         </div>
                       </td>
-                      <td style={{ padding: '1rem 1.25rem', color: 'var(--text-secondary)' }}>{p.sku}</td>
-                      <td style={{ padding: '1rem 1.25rem' }}>
+                      <td style={{ padding: '0.75rem 1rem', color: 'var(--text-secondary)' }}>{p.sku}</td>
+                      <td style={{ padding: '0.75rem 1rem' }}>
                         <span className="badge" style={{ background: 'var(--bg-app)', color: 'var(--text-secondary)', borderRadius: '6px' }}>
                           {p.category}
                         </span>
                       </td>
-                      <td style={{ padding: '1rem 1.25rem' }}>
+                      <td style={{ padding: '0.75rem 1rem' }}>
                         <span style={{ 
                           fontWeight: 'bold', 
                           color: p.stock < 10 ? 'var(--danger)' : p.stock < 50 ? 'var(--warning)' : 'var(--success)'
@@ -82,10 +88,15 @@ export default function ProductsPage() {
                           {p.stock}
                         </span>
                       </td>
-                      <td style={{ padding: '1rem 1.25rem', color: 'var(--text-secondary)' }}>{p.uom}</td>
-                      <td style={{ padding: '1rem 1.25rem', textAlign: 'right' }}>
-                        <button style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)' }}>
-                          <MoreVertical size={16} />
+                      <td style={{ padding: '0.75rem 1rem', color: 'var(--text-secondary)' }}>{p.uom}</td>
+                      <td style={{ padding: '0.75rem 1rem', textAlign: 'right' }}>
+                        <button 
+                          onClick={() => handleDelete(p.id)}
+                          style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--danger)', opacity: 0.7, transition: 'opacity 0.2s' }}
+                          onMouseEnter={e => e.currentTarget.style.opacity = '1'}
+                          onMouseLeave={e => e.currentTarget.style.opacity = '0.7'}
+                        >
+                          <Trash2 size={16} />
                         </button>
                       </td>
                     </tr>
@@ -97,10 +108,10 @@ export default function ProductsPage() {
         </div>
 
         {/* RIGHT COLUMN - BENTO CARDS */}
-        <div className="dashboard-right" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', minHeight: 0 }}>
+        <div className="dashboard-right" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', minHeight: 0 }}>
           
           {/* Dark Card - Total Value */}
-          <div className="card" style={{ flex: 1, background: '#1E1F26', color: 'white', padding: '1.25rem', display: 'flex', flexDirection: 'column' }}>
+          <div className="card" style={{ flex: 1, background: '#1E1F26', color: 'white', padding: '1rem 1.25rem', display: 'flex', flexDirection: 'column' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', alignItems: 'center' }}>
               <span style={{ fontSize: '1rem', color: '#FFFFFF', fontWeight: 500 }}>Total Inventory Value</span>
               <Box size={16} color="rgba(255,255,255,0.7)" />
@@ -121,7 +132,7 @@ export default function ProductsPage() {
           </div>
 
           {/* Gradient Card - Categories */}
-          <div className="card" style={{ flex: 1, background: 'linear-gradient(135deg, #7E87BA 0%, #B496A6 50%, #E3C1AF 100%)', color: 'white', padding: '1.25rem', display: 'flex', flexDirection: 'column' }}>
+          <div className="card" style={{ flex: 1, background: 'linear-gradient(135deg, #7E87BA 0%, #B496A6 50%, #E3C1AF 100%)', color: 'white', padding: '1rem 1.25rem', display: 'flex', flexDirection: 'column' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', alignItems: 'center' }}>
               <span style={{ fontSize: '1rem', color: '#FFFFFF', fontWeight: 500 }}>Top Category</span>
               <Grid size={16} color="rgba(255,255,255,0.7)" />
@@ -144,7 +155,7 @@ export default function ProductsPage() {
           </div>
 
           {/* Beige Card - Alerts */}
-          <div className="card" style={{ flex: 1, background: '#F8E9DE', color: '#111', padding: '1.25rem', display: 'flex', flexDirection: 'column' }}>
+          <div className="card" style={{ flex: 1, background: '#F8E9DE', color: '#111', padding: '1rem 1.25rem', display: 'flex', flexDirection: 'column' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', alignItems: 'center' }}>
               <span style={{ fontSize: '1rem', fontWeight: 500 }}>Stock Alerts</span>
               <ShieldAlert size={16} color="#666" />

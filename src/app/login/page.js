@@ -2,31 +2,51 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAppContext } from "@/context/AppContext";
+import { signIn } from "next-auth/react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { login } = useAppContext();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    login(email, password);
-    router.push("/dashboard");
+    setLoading(true);
+    setError(null);
+    
+    const result = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+
+    if (result.error) {
+      setError("Invalid email or password");
+      setLoading(false);
+    } else {
+      router.push("/dashboard");
+    }
   };
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', minHeight: '100vh', background: 'var(--bg-primary)' }}>
-      <div className="card animate-fade-in" style={{ width: '100%', maxWidth: '400px', padding: '2.5rem', position: 'relative', overflow: 'hidden' }}>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', minHeight: '100vh', background: 'var(--bg-app)' }}>
+      <div className="card animate-fade-in" style={{ width: '100%', maxWidth: '400px', padding: '2.5rem', position: 'relative', overflow: 'hidden', zIndex: 10 }}>
         
         {/* Decorative Glow */}
-        <div style={{ position: 'absolute', top: '-50px', right: '-50px', width: '100px', height: '100px', background: 'var(--accent-primary)', filter: 'blur(50px)', opacity: 0.5, borderRadius: '50%' }}></div>
+        <div style={{ position: 'absolute', top: '-50px', right: '-50px', width: '100px', height: '100px', background: 'var(--accent-purple)', filter: 'blur(50px)', opacity: 0.3, borderRadius: '50%' }}></div>
 
         <div style={{ textAlign: 'center', marginBottom: '2rem', position: 'relative', zIndex: 1 }}>
-          <h1 style={{ color: 'white', fontSize: '2rem', marginBottom: '0.5rem', fontWeight: 700 }}>StockSense</h1>
+          <h1 style={{ color: 'var(--text-primary)', fontSize: '2rem', marginBottom: '0.5rem', fontWeight: 700 }}>StockSense</h1>
           <p style={{ color: 'var(--text-secondary)' }}>Welcome back! Please login to your account.</p>
         </div>
+
+        {error && (
+          <div style={{ background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', padding: '0.75rem', borderRadius: '8px', marginBottom: '1.5rem', fontSize: '0.875rem', textAlign: 'center', border: '1px solid rgba(239, 68, 68, 0.2)', position: 'relative', zIndex: 1 }}>
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleLogin} style={{ position: 'relative', zIndex: 1 }}>
           <div className="form-group">
@@ -34,7 +54,7 @@ export default function LoginPage() {
             <input 
               type="email" 
               className="form-input" 
-              placeholder="manager@stocksense.com" 
+              placeholder="admin@stocksense.com" 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required 
@@ -56,8 +76,8 @@ export default function LoginPage() {
             />
           </div>
 
-          <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '1rem', height: '48px' }}>
-            Sign In
+          <button type="submit" disabled={loading} className="btn btn-primary" style={{ width: '100%', marginTop: '1rem', height: '48px', opacity: loading ? 0.7 : 1 }}>
+            {loading ? 'Signing In...' : 'Sign In'}
           </button>
         </form>
 

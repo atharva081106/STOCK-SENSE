@@ -2,9 +2,11 @@
 
 import { Search, Bell } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function Topbar() {
   const pathname = usePathname();
+  const { data: session } = useSession();
   
   // Determine title based on route
   let title = "Overview";
@@ -40,8 +42,8 @@ export default function Topbar() {
           <Bell size={16} color="var(--text-primary)" />
           <span style={{ position: 'absolute', top: '-2px', right: '-2px', background: 'var(--success)', color: 'white', fontSize: '0.5rem', padding: '2px 4px', borderRadius: '10px', fontWeight: 'bold' }}>2</span>
         </button>
-        <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'var(--accent-purple)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold', fontSize: '0.9rem', marginLeft: '0.25rem', overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
-          <img src="https://i.pravatar.cc/100" alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'var(--accent-purple)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold', fontSize: '0.9rem', marginLeft: '0.25rem', overflow: 'hidden', boxShadow: 'var(--shadow-sm)', cursor: 'pointer' }} title={session?.user?.email}>
+          {session?.user?.name ? session.user.name.charAt(0).toUpperCase() : 'A'}
         </div>
       </div>
     </div>
