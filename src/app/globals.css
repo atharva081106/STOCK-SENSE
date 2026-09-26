@@ -1,0 +1,383 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg-app: #F0F2F5;
+  --bg-card: #FFFFFF;
+  --bg-sidebar: #1E1F26;
+  
+  --text-primary: #111111;
+  --text-secondary: #6B7280;
+  --text-muted: #9CA3AF;
+  
+  --accent-purple: #9282FA;
+  --accent-purple-light: #D4CFFF;
+  --accent-dark: #1E1F26;
+  
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --info: #3B82F6;
+  
+  --border-color: #E5E7EB;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+/* Cards */
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden; /* Prevent text spilling out of card bounds */
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1), 0 10px 20px -5px rgba(0,0,0,0.05);
+  z-index: 5;
+}
+
+.card-dark { background: var(--accent-dark); color: #FFFFFF; border: none; }
+.card-dark .text-secondary { color: #9CA3AF !important; }
+.card-gradient { background: linear-gradient(135deg, #7A7BB0 0%, #B991A5 50%, #E2C0AF 100%); color: #FFFFFF; border: none; }
+.card-beige { background: #FDF1E5; color: var(--text-primary); border: none; }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border: none;
+  font-family: 'Outfit', sans-serif;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.btn:active {
+  transform: translateY(0) scale(0.95);
+}
+
+.btn-primary { background: var(--accent-dark); color: white; }
+.btn-secondary { background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border-color); }
+
+/* Layout Utilities */
+.app-container {
+  display: flex;
+  height: 100vh;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.sidebar {
+  width: 72px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100%;
+  overflow-y: auto; /* Allows scrolling on subpages without breaking dashboard layout */
+}
+
+/* Tables */
+.table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.8rem; }
+.table th { text-align: left; padding: 0.75rem 0.5rem; color: var(--text-secondary); font-weight: 500; border-bottom: 1px solid var(--border-color); }
+.table td { padding: 0.75rem 0.5rem; border-bottom: 1px solid var(--border-color); font-weight: 500; transition: background-color 0.2s ease; }
+.table tr:last-child td { border-bottom: none; }
+
+.table tbody tr {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+  position: relative;
+}
+.table tbody tr:hover {
+  transform: scale(1.01);
+  box-shadow: 0 8px 16px -4px rgba(0,0,0,0.05);
+  z-index: 10;
+}
+.table tbody tr:hover td {
+  background: #FDFDFD;
+  border-bottom-color: transparent;
+}
+
+/* Responsive Overrides */
+@media (max-width: 1024px) {
+  .app-container {
+    flex-direction: column-reverse; /* Sidebar at bottom */
+    height: auto;
+    min-height: 100vh;
+  }
+  .sidebar {
+    width: 100%;
+    height: 72px;
+    flex-direction: row;
+  }
+  .sidebar > div {
+    flex-direction: row !important;
+    padding: 0.5rem !important;
+    margin: 0 !important;
+  }
+  .sidebar nav {
+    flex-direction: row !important;
+    justify-content: space-around;
+  }
+  .main-content {
+    overflow-y: visible;
+  }
+  .hide-on-mobile {
+    display: none !important;
+  }
+  
+  .dashboard-grid {
+    height: auto !important;
+    overflow-y: visible !important;
+  }
+  .dashboard-layout {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .dashboard-left {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .dashboard-row-2 {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .card {
+    min-height: 300px; /* Give cards enough height when stacked on mobile */
+  }
+}
+
+/* If the screen is too short, allow vertical scrolling so text doesn't squish out of cards */
+@media (max-height: 800px) {
+  .app-container {
+    height: auto;
+    min-height: 100vh;
+  }
+  .main-content {
+    overflow-y: visible;
+  }
+  .dashboard-grid {
+    height: auto !important;
+    overflow-y: visible !important;
+  }
+  .dashboard-layout {
+    gap: 2rem !important; /* give more space when scrolling */
+  }
+  .card {
+    min-height: 180px; /* prevent severe squishing */
+  }
+}
+
+/* Framer-like Animations & Interactions */
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes aurora-spin {
+  0% { transform: rotate(0deg) scale(1) translate(-5%, -5%); }
+  33% { transform: rotate(120deg) scale(1.1) translate(5%, 5%); }
+  66% { transform: rotate(240deg) scale(0.9) translate(-5%, 5%); }
+  100% { transform: rotate(360deg) scale(1) translate(-5%, -5%); }
+}
+
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+  gap: 4rem;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.framer-card {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+  position: relative;
+}
+
+.framer-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.framer-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 30px 60px -12px rgba(0,0,0,0.12), 0 18px 36px -18px rgba(0,0,0,0.08);
+}
+
+.framer-card:hover::after {
+  opacity: 1;
+}
+
+.glass-pill {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-pill:hover {
+  background: rgba(255,255,255,0.2);
+  transform: scale(1.05);
+}
+
+.aurora-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(126,135,186,0.2) 0%, rgba(126,135,186,0) 70%);
+  filter: blur(60px);
+  animation: aurora-spin 20s infinite linear;
+  z-index: 0;
+  pointer-events: none;
+  transform-origin: center center;
+  margin-top: -300px;
+  margin-left: -300px;
+}
+
+/* --- CRAZY NEW ANIMATIONS --- */
+
+/* 1. Animated Grid Background */
+.animated-grid-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-size: 40px 40px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  mask-image: radial-gradient(ellipse at 50% 0%, black 40%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 0%, black 40%, transparent 70%);
+  animation: grid-move 20s linear infinite;
+}
+
+@keyframes grid-move {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(40px); }
+}
+
+/* 2. Text Shimmer Glow */
+.text-shimmer-glow {
+  background: linear-gradient(
+    110deg,
+    #7E87BA 0%,
+    #E3C1AF 25%,
+    #ffffff 50%,
+    #E3C1AF 75%,
+    #7E87BA 100%
+  );
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer-text 3s linear infinite;
+}
+
+@keyframes shimmer-text {
+  to { background-position: 200% center; }
+}
+
+/* 3. Magic Border Beam for Cards */
+.magic-border-beam {
+  position: relative;
+}
+.magic-border-beam::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: calc(inherit + 2px);
+  background: conic-gradient(from var(--angle), transparent 70%, #7E87BA, #E3C1AF, transparent 100%);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  animation: spin-beam 3s linear infinite;
+}
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes spin-beam {
+  from { --angle: 0deg; }
+  to { --angle: 360deg; }
+}
+.magic-border-beam:hover::after {
+  opacity: 1;
+}
+
+/* Spotlight Effect */
+.spotlight-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+.spotlight-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, -20%), rgba(126, 135, 186, 0.1), transparent 40%);
+  z-index: 10;
+  transition: background 0.1s;
+}
