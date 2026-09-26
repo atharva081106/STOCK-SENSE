@@ -50,7 +50,7 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
             style={{ background: 'rgba(126, 135, 186, 0.1)', color: '#7E87BA', padding: '0.5rem 1.25rem', borderRadius: '9999px', fontSize: '0.875rem', fontWeight: 600, marginBottom: '2rem', display: 'inline-flex', alignItems: 'center', gap: '0.5rem', position: 'relative', zIndex: 1 }}
           >
-            <Zap size={14} /> Introducing StockSense 2.0 for India
+            <Zap size={14} /> Introducing StockSense for India
           </motion.div>
           
           <motion.h1 
