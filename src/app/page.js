@@ -133,7 +133,7 @@ export default function LandingPage() {
           </motion.p>
 
           {/* Carousel Track */}
-          <div style={{ display: 'flex', overflowX: 'auto', gap: '1.5rem', padding: '1.5rem 2rem 2.5rem 2rem', scrollSnapType: 'x mandatory', scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch', position: 'relative', zIndex: 1 }}>
+          <div className="features-carousel" style={{ display: 'flex', overflowX: 'auto', gap: '1.5rem', padding: '1.5rem 2rem 2.5rem 2rem', scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch', position: 'relative', zIndex: 1 }}>
 
             {/* Card 1 — Analytics */}
             <motion.div

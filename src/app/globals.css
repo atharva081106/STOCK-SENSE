@@ -467,5 +467,19 @@ body {
   100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
 }
 
-/* Hide scrollbar for the carousel track */
-.carousel-track::-webkit-scrollbar { display: none; }
+/* Features Carousel scrollbar for desktop mouse users */
+.features-carousel::-webkit-scrollbar {
+  height: 10px;
+}
+.features-carousel::-webkit-scrollbar-track {
+  background: rgba(126, 135, 186, 0.05);
+  border-radius: 10px;
+  margin: 0 2rem;
+}
+.features-carousel::-webkit-scrollbar-thumb {
+  background: rgba(126, 135, 186, 0.3);
+  border-radius: 10px;
+}
+.features-carousel::-webkit-scrollbar-thumb:hover {
+  background: rgba(126, 135, 186, 0.5);
+}
