@@ -71,7 +71,7 @@ export default function LandingPage() {
             </Link>
             {/* Demo CTA */}
             <Link href="/demo" style={{ background: 'white', color: '#1E1F26', padding: '1.1rem 2.25rem', borderRadius: '9999px', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.6rem', border: '1.5px solid rgba(0,0,0,0.1)', transition: 'transform 0.2s, box-shadow 0.2s, border-color 0.2s', boxShadow: '0 4px 16px rgba(0,0,0,0.06)' }} onMouseOver={e=>{e.currentTarget.style.transform='translateY(-2px)'; e.currentTarget.style.borderColor='rgba(126,135,186,0.5)';}} onMouseOut={e=>{e.currentTarget.style.transform='translateY(0)'; e.currentTarget.style.borderColor='rgba(0,0,0,0.1)';}}>
-              <MonitorPlay size={17} color="#7E87BA" /> View Live Demo
+              <MonitorPlay size={17} color="#7E87BA" /> Live Demo
             </Link>
           </motion.div>
           
@@ -80,8 +80,6 @@ export default function LandingPage() {
             style={{ marginTop: '1.25rem', fontSize: '0.82rem', color: '#aaa', display: 'flex', gap: '1.5rem', justifyContent: 'center' }}
           >
             <span>No credit card required</span>
-            <span style={{ color: '#ccc' }}>•</span>
-            <span>Demo: instant access, no signup</span>
           </motion.p>
 
           {/* Dashboard Image */}
@@ -388,31 +386,60 @@ export default function LandingPage() {
               Get Started for Free
             </Link>
             <Link href="/demo" style={{ background: 'rgba(255,255,255,0.1)', color: 'white', padding: '1rem 2.5rem', borderRadius: '9999px', textDecoration: 'none', fontWeight: 600, fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '0.5rem', border: '1.5px solid rgba(255,255,255,0.25)', transition: 'background 0.2s, transform 0.2s', backdropFilter: 'blur(8px)' }} onMouseOver={e=>{e.currentTarget.style.background='rgba(255,255,255,0.18)'; e.currentTarget.style.transform='scale(1.05)';}} onMouseOut={e=>{e.currentTarget.style.background='rgba(255,255,255,0.1)'; e.currentTarget.style.transform='scale(1)';}}>
-              <MonitorPlay size={18} /> View Live Demo
+              <MonitorPlay size={18} /> Live Demo
             </Link>
           </div>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '2rem', color: 'rgba(255,255,255,0.5)', fontSize: '0.9rem' }}>
              <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}><CheckCircle2 size={16} /> 14-day free trial</span>
              <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}><CheckCircle2 size={16} /> Cancel anytime</span>
-             <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}><CheckCircle2 size={16} /> Demo: instant, no signup</span>
           </div>
         </motion.section>
 
       </main>
 
-      {/* Footer */}
-      <footer style={{ padding: '3rem 4rem', borderTop: '1px solid rgba(0,0,0,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'white' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', opacity: 0.8 }}>
-          <img src="/logo.jpg" alt="StockSense" style={{ width: '24px', height: '24px', borderRadius: '6px' }} />
-          <span style={{ fontWeight: 600, letterSpacing: '-0.02em' }}>StockSense</span>
+      {/* Improved Premium Footer */}
+      <footer style={{ padding: '6rem 4rem 3rem 4rem', background: '#FAFAFA', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '4rem', maxWidth: '1200px', margin: '0 auto', marginBottom: '4rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
+              <img src="/logo.jpg" alt="StockSense" style={{ width: '32px', height: '32px', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }} />
+              <span style={{ fontWeight: 800, fontSize: '1.25rem', letterSpacing: '-0.03em', color: '#1E1F26' }}>StockSense</span>
+            </div>
+            <p style={{ color: '#666', fontSize: '0.9rem', lineHeight: 1.6 }}>The modern inventory management system built for teams that move fast and scale confidently.</p>
+          </div>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <h4 style={{ fontWeight: 700, color: '#1E1F26', marginBottom: '0.5rem' }}>Product</h4>
+            <Link href="#features" style={{ color: '#666', textDecoration: 'none', fontSize: '0.9rem', transition: 'color 0.2s' }} onMouseOver={e=>e.currentTarget.style.color='#1E1F26'} onMouseOut={e=>e.currentTarget.style.color='#666'}>Features</Link>
+            <Link href="#solutions" style={{ color: '#666', textDecoration: 'none', fontSize: '0.9rem', transition: 'color 0.2s' }} onMouseOver={e=>e.currentTarget.style.color='#1E1F26'} onMouseOut={e=>e.currentTarget.style.color='#666'}>Solutions</Link>
+            <Link href="#pricing" style={{ color: '#666', textDecoration: 'none', fontSize: '0.9rem', transition: 'color 0.2s' }} onMouseOver={e=>e.currentTarget.style.color='#1E1F26'} onMouseOut={e=>e.currentTarget.style.color='#666'}>Pricing</Link>
+            <Link href="/demo" style={{ color: '#666', textDecoration: 'none', fontSize: '0.9rem', transition: 'color 0.2s' }} onMouseOver={e=>e.currentTarget.style.color='#1E1F26'} onMouseOut={e=>e.currentTarget.style.color='#666'}>Live Demo</Link>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <h4 style={{ fontWeight: 700, color: '#1E1F26', marginBottom: '0.5rem' }}>Company</h4>
+            <Link href="#" style={{ color: '#666', textDecoration: 'none', fontSize: '0.9rem', transition: 'color 0.2s' }} onMouseOver={e=>e.currentTarget.style.color='#1E1F26'} onMouseOut={e=>e.currentTarget.style.color='#666'}>About Us</Link>
+            <Link href="#" style={{ color: '#666', textDecoration: 'none', fontSize: '0.9rem', transition: 'color 0.2s' }} onMouseOver={e=>e.currentTarget.style.color='#1E1F26'} onMouseOut={e=>e.currentTarget.style.color='#666'}>Careers</Link>
+            <Link href="#" style={{ color: '#666', textDecoration: 'none', fontSize: '0.9rem', transition: 'color 0.2s' }} onMouseOver={e=>e.currentTarget.style.color='#1E1F26'} onMouseOut={e=>e.currentTarget.style.color='#666'}>Contact Sales</Link>
+          </div>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <h4 style={{ fontWeight: 700, color: '#1E1F26', marginBottom: '0.5rem' }}>Legal</h4>
+            <Link href="#" style={{ color: '#666', textDecoration: 'none', fontSize: '0.9rem', transition: 'color 0.2s' }} onMouseOver={e=>e.currentTarget.style.color='#1E1F26'} onMouseOut={e=>e.currentTarget.style.color='#666'}>Privacy Policy</Link>
+            <Link href="#" style={{ color: '#666', textDecoration: 'none', fontSize: '0.9rem', transition: 'color 0.2s' }} onMouseOver={e=>e.currentTarget.style.color='#1E1F26'} onMouseOut={e=>e.currentTarget.style.color='#666'}>Terms of Service</Link>
+          </div>
         </div>
-        <div style={{ display: 'flex', gap: '2rem', fontSize: '0.875rem', color: '#666' }}>
-          <span style={{ cursor: 'pointer' }}>Privacy Policy</span>
-          <span style={{ cursor: 'pointer' }}>Terms of Service</span>
-          <span style={{ cursor: 'pointer' }}>Contact Sales</span>
-        </div>
-        <div style={{ fontSize: '0.875rem', color: '#888' }}>
-          © 2024 StockSense India. All rights reserved.
+        
+        <div style={{ maxWidth: '1200px', margin: '0 auto', paddingTop: '2rem', borderTop: '1px solid rgba(0,0,0,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+          <div style={{ fontSize: '0.85rem', color: '#888' }}>
+            © {new Date().getFullYear()} StockSense. Built in India. All rights reserved.
+          </div>
+          <div style={{ display: 'flex', gap: '1.5rem', color: '#aaa' }}>
+            {/* Placeholder icons for social media */}
+            <div style={{ width: '20px', height: '20px', background: 'currentColor', borderRadius: '50%', cursor: 'pointer', transition: 'color 0.2s' }} onMouseOver={e=>e.currentTarget.style.color='#1E1F26'} onMouseOut={e=>e.currentTarget.style.color='#aaa'} />
+            <div style={{ width: '20px', height: '20px', background: 'currentColor', borderRadius: '50%', cursor: 'pointer', transition: 'color 0.2s' }} onMouseOver={e=>e.currentTarget.style.color='#1E1F26'} onMouseOut={e=>e.currentTarget.style.color='#aaa'} />
+            <div style={{ width: '20px', height: '20px', background: 'currentColor', borderRadius: '50%', cursor: 'pointer', transition: 'color 0.2s' }} onMouseOver={e=>e.currentTarget.style.color='#1E1F26'} onMouseOut={e=>e.currentTarget.style.color='#aaa'} />
+          </div>
         </div>
       </footer>
     </div>
