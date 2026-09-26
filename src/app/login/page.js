@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -66,7 +67,9 @@ export default function LoginPage() {
         <div style={{ position: 'absolute', top: '-50px', right: '-50px', width: '100px', height: '100px', background: 'var(--accent-purple)', filter: 'blur(50px)', opacity: 0.3, borderRadius: '50%' }}></div>
 
         <div style={{ textAlign: 'center', marginBottom: '2rem', position: 'relative', zIndex: 1 }}>
-          <h1 style={{ color: 'var(--text-primary)', fontSize: '2rem', marginBottom: '0.5rem', fontWeight: 700 }}>StockSense</h1>
+          <Link href="/" style={{ textDecoration: 'none' }}>
+            <h1 style={{ color: 'var(--text-primary)', fontSize: '2rem', marginBottom: '0.5rem', fontWeight: 700, cursor: 'pointer' }}>StockSense</h1>
+          </Link>
           <p style={{ color: 'var(--text-secondary)' }}>Welcome back! Please login to your account.</p>
         </div>
 

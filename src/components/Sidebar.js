@@ -25,7 +25,9 @@ export default function Sidebar() {
       <div style={{ background: 'var(--bg-sidebar)', borderRadius: '24px', padding: '1.5rem 0.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1, marginBottom: '0.5rem' }}>
         
         <div style={{ marginBottom: '2rem' }}>
-          <img src="/logo.jpg" alt="StockSense" style={{ width: '32px', height: '32px', borderRadius: '8px', objectFit: 'cover' }} />
+          <Link href="/">
+            <img src="/logo.jpg" alt="StockSense" style={{ width: '32px', height: '32px', borderRadius: '8px', objectFit: 'cover', cursor: 'pointer' }} title="Back to Homepage" />
+          </Link>
         </div>
 
         <nav style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%', alignItems: 'center' }}>
