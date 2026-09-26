@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight, Package, TrendingUp, ShieldCheck, Zap, Database, Globe, Play, CheckCircle2, MonitorPlay } from "lucide-react";
 import { motion } from "framer-motion";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function LandingPage() {
   const [mousePos, setMousePos] = useState({ x: '50%', y: '-20%' });
@@ -28,6 +29,7 @@ export default function LandingPage() {
           <a href="#solutions" style={{ color: '#666', fontWeight: 500, textDecoration: 'none', fontSize: '0.95rem', transition: 'color 0.2s' }} onMouseOver={e=>e.target.style.color='#111'} onMouseOut={e=>e.target.style.color='#666'}>Solutions</a>
           <a href="#pricing" style={{ color: '#666', fontWeight: 500, textDecoration: 'none', fontSize: '0.95rem', transition: 'color 0.2s' }} onMouseOver={e=>e.target.style.color='#111'} onMouseOut={e=>e.target.style.color='#666'}>Pricing</a>
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+            <ThemeToggle />
             <Link href="/login" style={{ color: '#111', fontWeight: 600, textDecoration: 'none', fontSize: '0.95rem' }}>Log in</Link>
             <Link href="/demo" style={{ background: 'rgba(126,135,186,0.12)', color: '#7E87BA', padding: '0.6rem 1.25rem', borderRadius: '9999px', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.4rem', transition: 'background 0.2s' }} onMouseOver={e=>e.currentTarget.style.background='rgba(126,135,186,0.22)'} onMouseOut={e=>e.currentTarget.style.background='rgba(126,135,186,0.12)'}>
               <MonitorPlay size={15} /> Live Demo
