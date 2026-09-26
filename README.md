@@ -45,15 +45,62 @@ With a meticulously crafted user interface, real-time product tracking, and dyna
 - 📖 **Immutable Move History**: An automated audit trail logging exactly who moved what and when for total accountability.
 - 💎 **Premium UI**: Crafted with responsive glassmorphism components and fluid micro-animations.
 
+## 🏗️ System Architecture
+
+```mermaid
+graph TD
+    Client[Client Browser] --> |HTTP/HTTPS| Frontend[Next.js App Router]
+    
+    subgraph "StockSense Application"
+        Frontend --> |React Server Components| UI[User Interface]
+        Frontend --> |NextAuth.js| Auth[Authentication]
+        Frontend --> |Server Actions / API Routes| Backend[Next.js Backend]
+        Backend --> |Prisma ORM| ORM[Data Layer]
+    end
+    
+    ORM --> |PostgreSQL Connection| DB[(PostgreSQL Database)]
+```
+
+## 🔄 Operational Workflow
+
+```mermaid
+sequenceDiagram
+    participant User as Inventory Manager
+    participant App as StockSense UI
+    participant Server as Next.js API
+    participant DB as PostgreSQL
+
+    User->>App: Logs in via NextAuth
+    App->>Server: Authenticate Credentials
+    Server->>DB: Verify User
+    DB-->>Server: Return Session
+    Server-->>App: Redirect to Dashboard
+
+    User->>App: Navigates to Operations (e.g. Receipts)
+    App->>Server: Fetch filtered operations
+    Server->>DB: Query Operations (Status: Draft/Waiting/Ready)
+    DB-->>Server: Return Operations Data
+    Server-->>App: Render responsive data grid
+
+    User->>App: Updates operation status to "Done"
+    App->>Server: Update status API
+    Server->>DB: Database Transaction (Update Op & Stock)
+    DB-->>Server: Success Confirmation
+    Server-->>App: UI updates instantly (Real-time Feedback)
+```
+
 ## 🛠️ Technology Stack
 
-- **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
-- **Database**: PostgreSQL (via Neon / Supabase)
+Our robust tech stack ensures scalability, type safety, and blazingly fast performance:
+
+- **Frontend Core**: [Next.js 14](https://nextjs.org/) (App Router), React 18
+- **Backend**: Next.js Server Actions & API Routes
+- **Database**: PostgreSQL (Hosted on Neon/Supabase)
 - **ORM**: [Prisma](https://www.prisma.io/)
-- **Authentication**: [NextAuth.js](https://next-auth.js.org/)
-- **Styling**: Vanilla CSS (CSS Modules & Global Variables)
+- **Authentication**: [NextAuth.js](https://next-auth.js.org/) (Credentials Provider)
+- **Styling**: Vanilla CSS (CSS Modules & Global Variables) for zero runtime overhead
 - **Icons**: [Lucide React](https://lucide.dev/)
-- **Deployment**: [Vercel](https://vercel.com/)
+- **Deployment**: [Vercel](https://vercel.com/) (Serverless Edge)
 
 ---
 
